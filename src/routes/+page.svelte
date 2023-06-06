@@ -1,6 +1,5 @@
 <script>
-	console.log('yallo world!');
+	import ButtonLink from '$lib/components/ButtonLink.svelte';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<ButtonLink href="/upload">Upload a photo</ButtonLink>
