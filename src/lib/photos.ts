@@ -10,6 +10,8 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 	const fileExtension = file.name.split('.').slice(1).at(-1);
 	const fileNameFromId = `${objectId}.${fileExtension}`; // FIXME: Is this really needed?
 
+	// TODO: Create optimized copies of photos
+
 	const fileRef = ref(storage, `photos/general/${fileNameFromId}`);
 	await uploadBytes(fileRef, file);
 
@@ -20,4 +22,6 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 		src: await getDownloadURL(fileRef),
 		tags,
 	});
+
+	await fetch(`/api/annotate/${objectId}`, { method: 'POST' });
 };

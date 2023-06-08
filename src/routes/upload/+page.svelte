@@ -24,7 +24,13 @@
 					throw new Error('Please, specify the file you want to upload');
 				}
 
-				const tags = typeof tagsString === 'string' ? tagsString.split('|').map((str) => str.trim()) : [];
+				const tags =
+					typeof tagsString === 'string'
+						? tagsString
+								.split('|')
+								.map((str) => str.trim())
+								.filter(Boolean)
+						: [];
 
 				await savePhoto({ file, tags });
 

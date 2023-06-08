@@ -1,4 +1,4 @@
-import { initializeApp, type FirebaseOptions } from 'firebase/app';
+import { initializeApp, getApps, getApp, type FirebaseOptions } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
@@ -20,7 +20,7 @@ const firebaseConfig: FirebaseOptions = {
 	appId: PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 export const firestore = getFirestore(app);
 
