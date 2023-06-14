@@ -6,10 +6,20 @@
 	export let data;
 </script>
 
-<div class="px-4 py-4">
-	<a href="/upload">
-		<Button>Upload a photo</Button>
-	</a>
+<div class="flex gap-4 px-4 py-4">
+	<div>
+		<form>
+			<!-- TODO: Implement resetting searchbar when searching -->
+			<input type="text" name="q" placeholder="Search" class="rounded-sm border border-gray-400 p-1" />
+			<Button type="submit">Upload a photo</Button>
+		</form>
+	</div>
+
+	<div class="ml-auto">
+		<a href="/upload">
+			<Button>Upload a photo</Button>
+		</a>
+	</div>
 </div>
 
 <div class="grid grid-cols-[repeat(auto-fit,minmax(15rem,20rem))] gap-4 bg-gray-50 p-4">

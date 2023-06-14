@@ -7,7 +7,7 @@
 - [x] Implement uploading photos & basic photo gallery on the homepage
 - [x] Add basic automatic image tagging functionality
 - [x] Introduce image optimization for the gallery page and for the Cloud Vision API
-- [ ] Implement search based on tags
+- [x] Implement search based on tags
 - [ ] Implement advanced search
 - [ ] Improve the UI
 - [ ] Explore other image tagging options ?
