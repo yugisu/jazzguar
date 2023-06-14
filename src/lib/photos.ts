@@ -28,10 +28,7 @@ export const resizePhoto = async (file: File): Promise<Blob | undefined> => {
 export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) => {
 	const objectId = ulid();
 
-	const fileExtension = file.name.split('.').slice(1).at(-1);
-	const fileNameFromId = `${objectId}.${fileExtension}`;
-
-	const fileRef = ref(storage, `photos/general/${fileNameFromId}`);
+	const fileRef = ref(storage, `photos/general/${objectId}`);
 	await uploadBytes(fileRef, file, { cacheControl: 'max-age=604800, immutable' });
 
 	const docRef = doc(photosCol(), objectId);
@@ -46,7 +43,7 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 	const resizedFile = await resizePhoto(file);
 
 	if (resizedFile) {
-		const thumbnailFileRef = ref(storage, `photos/general/thumbnail-${fileNameFromId}`);
+		const thumbnailFileRef = ref(storage, `photos/general/thumbnail-${objectId}`);
 		await uploadBytes(thumbnailFileRef, resizedFile, { cacheControl: 'max-age=604800, immutable' });
 
 		await updateDoc(docRef, {

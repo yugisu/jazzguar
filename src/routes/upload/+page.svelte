@@ -51,7 +51,7 @@
 		<fieldset class="flex flex-col gap-4" disabled={submitting}>
 			<label>
 				<p>File</p>
-				<input name="file" type="file" />
+				<input name="file" type="file" accept="image/png, image/jpeg, image/webp" />
 			</label>
 
 			<label>

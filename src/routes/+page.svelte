@@ -22,6 +22,8 @@
 			/>
 
 			<div class="border-t border-t-gray-100 p-2">
+				<p class="text-xs text-gray-400">{photoSnap.id}</p>
+
 				<p>{photoSnap.data().name}</p>
 			</div>
 
