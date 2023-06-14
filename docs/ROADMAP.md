@@ -11,6 +11,7 @@
 - [ ] Implement advanced search
 - [ ] Improve the UI
 - [ ] Explore other image tagging options ?
+- [ ] P1: Add logging to backend and frontend logic
 
 ## Post-MVP
 
