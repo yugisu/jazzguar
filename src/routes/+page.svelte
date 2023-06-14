@@ -15,7 +15,11 @@
 <div class="grid grid-cols-[repeat(auto-fit,minmax(15rem,20rem))] gap-4 bg-gray-50 p-4">
 	{#each data.photosSnap.docs as photoSnap (photoSnap.id)}
 		<div class="flex max-w-xs flex-col rounded-sm bg-white shadow-sm">
-			<img src={photoSnap.data().src} alt={photoSnap.data().name} class="aspect-square max-w-full object-contain" />
+			<img
+				src={photoSnap.data().srcOptimized || photoSnap.data().src}
+				alt={photoSnap.data().name}
+				class="aspect-square max-w-full object-contain"
+			/>
 
 			<div class="border-t border-t-gray-100 p-2">
 				<p>{photoSnap.data().name}</p>

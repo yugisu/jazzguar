@@ -6,6 +6,7 @@ import { firestore } from './firebase/app';
 export type Photo = {
 	id: string;
 	src: string;
+	srcOptimized?: string | undefined;
 	name: string;
 	tags: string[];
 };

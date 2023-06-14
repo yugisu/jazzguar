@@ -9,7 +9,7 @@ const client = new ImageAnnotatorClient();
 
 export const generatePhotoTags = async (photo: Photo): Promise<string[] | undefined> => {
 	const request = {
-		image: { source: { imageUri: photo.src } },
+		image: { source: { imageUri: photo.srcOptimized || photo.src } },
 		features: [{ type: 'LABEL_DETECTION' }],
 	};
 

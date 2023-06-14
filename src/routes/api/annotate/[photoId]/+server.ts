@@ -13,7 +13,7 @@ export const POST = (async ({ params }) => {
 
 	const photo = (await getDoc(photoRef)).data();
 
-	if (!photo || !photo.src) throw error(404, 'Photo not found');
+	if (!photo || !(photo.srcOptimized || photo.src)) throw error(404, 'Photo not found');
 
 	const tags = await generatePhotoTags(photo);
 
