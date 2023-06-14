@@ -1,9 +1,10 @@
-import { photosCol } from '$lib/db-schema.js';
+import { error } from '@sveltejs/kit';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
-import type { RequestHandler } from './$types';
-import { error } from '@sveltejs/kit';
+import { photosCol } from '$lib/db-schema.js';
 import { generatePhotoTags } from '$lib/server/vision';
+
+import type { RequestHandler } from './$types';
 
 export const POST = (async ({ params }) => {
 	const { photoId } = params;

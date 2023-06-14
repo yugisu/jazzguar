@@ -1,6 +1,6 @@
-import { photosCol } from '$lib/db-schema';
-
 import { getDocs } from 'firebase/firestore';
+
+import { photosCol } from '$lib/db-schema';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {

@@ -1,7 +1,7 @@
 <script>
 	import { goto, invalidate } from '$app/navigation';
-	import { savePhoto } from '$lib/photos';
 	import Button from '$lib/components/Button.svelte';
+	import { savePhoto } from '$lib/photos';
 
 	let submitting = false;
 	let errorMessage = '';

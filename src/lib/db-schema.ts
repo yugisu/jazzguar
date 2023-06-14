@@ -1,4 +1,5 @@
 import { collection, CollectionReference } from 'firebase/firestore';
+
 import { firestore } from './firebase/app';
 
 /** Photo stored at `/photos/` */

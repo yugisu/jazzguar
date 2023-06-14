@@ -1,7 +1,8 @@
 import { doc, setDoc } from 'firebase/firestore';
-import { ulid } from 'ulid';
-import { photosCol } from './db-schema';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { ulid } from 'ulid';
+
+import { photosCol } from './db-schema';
 import { storage } from './firebase/app';
 
 export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) => {
