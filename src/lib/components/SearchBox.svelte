@@ -9,7 +9,7 @@
 		type="text"
 		name="q"
 		placeholder="Search"
-		class="w-full rounded-sm border border-gray-400 p-1"
+		class="w-full rounded-sm border border-gray-400 px-2 py-1"
 		value={initialQuery}
 	/>
 	<Button type="submit">🔎</Button>
