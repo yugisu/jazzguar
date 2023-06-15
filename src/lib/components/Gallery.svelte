@@ -6,12 +6,16 @@
 	export let photos: Photo[];
 </script>
 
-<div class="grid grid-cols-[repeat(auto-fit,minmax(15rem,20rem))] gap-4">
+<div class="grid grid-cols-[repeat(auto-fit,minmax(18rem,auto))] gap-4">
 	{#each photos as photo (photo.id)}
-		<div class="flex max-w-xs flex-col rounded-sm bg-white shadow-sm">
-			<img src={photo.srcOptimized || photo.src} alt={photo.name} class="aspect-square max-w-full object-contain" />
+		<div class="flex flex-col rounded bg-white shadow-sm">
+			<img
+				src={photo.srcOptimized || photo.src}
+				alt={photo.name}
+				class="aspect-square max-w-full rounded-tl rounded-tr object-contain"
+			/>
 
-			<div class="border-t border-t-gray-100 p-2">
+			<div class="p-2">
 				<p class="text-xs text-gray-400">{photo.id}</p>
 
 				<p>{photo.name}</p>
