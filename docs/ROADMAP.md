@@ -10,6 +10,8 @@
 - [x] Implement search based on tags
 - [ ] Implement advanced search
 - [ ] Improve the UI
+  - [ ] Improve the look of tags (tag list is too long, show only manually added tags and hide automatic behind a hover icon)
+  - [ ] Add smart/dumb mode switcher to the search (smart = AI search, dumb = based on tags)
 - [ ] Explore other image tagging options ?
 - [ ] P1: Add logging to backend and frontend logic
 

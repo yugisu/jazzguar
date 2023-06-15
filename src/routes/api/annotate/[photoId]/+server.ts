@@ -7,6 +7,8 @@ import { generatePhotoTags } from '$lib/server/vision';
 import type { RequestHandler } from './$types';
 
 export const POST = (async ({ params }) => {
+	// TODO: Add logs
+
 	const { photoId } = params;
 
 	const photoRef = doc(photosCol(), photoId);

@@ -1,22 +1,26 @@
 <script>
-	import Button from '$lib/components/Button.svelte';
+	import { page } from '$app/stores';
 	import Gallery from '$lib/components/Gallery.svelte';
 	import SearchBox from '$lib/components/SearchBox.svelte';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
+
+	$: initialQuery = $page.url.searchParams.get('q') ?? '';
 </script>
 
 <div class="flex justify-between gap-4 px-4 py-4 max-sm:flex-col">
-	<SearchBox />
-
-	<div class="ml-auto">
-		<a href="/upload">
-			<Button>Upload a photo</Button>
-		</a>
-	</div>
+	<SearchBox {initialQuery} />
 </div>
 
 <div class="p-4">
-	<Gallery photos={data.photosSnap.docs.map((snap) => snap.data())} />
+	{#await data.streamed.photos}
+		Loading...
+	{:then photos}
+		{#if photos.length > 0}
+			<Gallery {photos} />
+		{:else}
+			No photos found.
+		{/if}
+	{/await}
 </div>
