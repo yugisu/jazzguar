@@ -6,7 +6,7 @@
 	export let photos: Photo[];
 </script>
 
-<div class="grid grid-cols-[repeat(auto-fit,minmax(18rem,auto))] gap-4">
+<div class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4">
 	{#each photos as photo (photo.id)}
 		<div class="flex flex-col rounded bg-white shadow-sm">
 			<img
