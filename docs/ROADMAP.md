@@ -8,7 +8,7 @@
 - [x] Add basic automatic image tagging functionality
 - [x] Introduce image optimization for the gallery page and for the Cloud Vision API
 - [x] Implement search based on tags
-- [ ] Implement advanced search
+- [x] Implement v1 AI-powered search
 - [ ] Improve the UI
   - [ ] Improve the look of tags (tag list is too long, show only manually added tags and hide automatic behind a hover icon)
   - [ ] Add smart/dumb mode switcher to the search (smart = AI search, dumb = based on tags)
