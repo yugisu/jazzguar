@@ -22,5 +22,8 @@
 		{:else}
 			No photos found.
 		{/if}
+	{:catch error}
+		<p>Error while fetching search results. Please, try refreshing the page.</p>
+		<pre class="mt-2">{error instanceof Error ? error.message : JSON.stringify(error, null, 2)}</pre>
 	{/await}
 </div>

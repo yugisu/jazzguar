@@ -26,6 +26,8 @@ export const load = (async ({ url, fetch }) => {
 	// 		: [];
 
 	const searchResults = fetch(`/api/search${url.search}`).then(async (res) => {
+		if (!res.ok) throw new Error(`${res.status}: ${res.statusText}, "${await res.text()}"`);
+
 		const aiTags: TagRating[] = await res.json();
 
 		if (aiTags.length === 0)

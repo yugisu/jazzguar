@@ -13,9 +13,10 @@
   - [x] Improve the look of tags (tag list is too long, show only manually added tags and hide automatic behind a hover icon)
   - [x] ~~Add smart/dumb mode switcher to the search (smart = AI search, dumb = based on tags)~~ - no need for this since the search AI is fast enough.
 - [ ] Improve the search prompt
-  - [ ] Address security issues (like ability to inject your own arbitrary text into the text query).
+  - [x] Address security issues (like ability to inject your own arbitrary text into the text query).
   - [ ] Improve the accuracy and add more context to the prompt.
-- [ ] Add logging to backend and frontend logic
+- [ ] Deploy the app.
+- [ ] Add logging to backend and frontend logic.
 
 ## Post-MVP
 
