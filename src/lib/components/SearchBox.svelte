@@ -8,7 +8,7 @@
 	<input
 		type="text"
 		name="q"
-		placeholder="Search"
+		placeholder="Search your photos..."
 		class="w-full rounded-sm border border-gray-400 px-2 py-1"
 		value={initialQuery}
 	/>

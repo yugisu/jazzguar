@@ -5,6 +5,6 @@
 </script>
 
 <Header />
-<main class="py-2">
+<main class="pb-20 pt-2">
 	<slot />
 </main>
