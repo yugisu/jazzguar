@@ -18,7 +18,7 @@
 
 <div class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4">
 	{#each rankedPhotos as { photo, rating, relatedTags } (photo.id)}
-		<div class="group flex flex-col rounded bg-white shadow-sm">
+		<a class="group flex flex-col rounded bg-white shadow-sm" href={photo.src}>
 			<img
 				src={photo.srcOptimized || photo.src}
 				alt={photo.name}
@@ -60,6 +60,6 @@
 					{/each}
 				{/if}
 			</div>
-		</div>
+		</a>
 	{/each}
 </div>
