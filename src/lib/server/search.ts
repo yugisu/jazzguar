@@ -7,15 +7,16 @@ export type TagRating = {
 	rating: number;
 };
 
+const sanitizeInput = (text: string) => text.replace('<', '&gt;').replace('>', '&gt;');
+
 // TODO: Imagine you are a photo search engine.
 
-// TODO: Handle XSS - LLMSS ????
 const getRankTagsPrompt = (query: string, tagList: string[]) => `${HUMAN_PROMPT}
-Given the following list of tags (separated by the "\n" character) in <tags></tags>, and text query in <query></query>, select tags that relate to the text query the most, and rate them on a scale from 0 to 1 by how closely the text query meaning relates to a tag, rating 1 is for the most fitting tag among these tags, rating 0 is for the least close tag. Don't be afraid to rate a tag as 0. Return results in valid JSON format as an array of objects with keys "tag", "rating". Your response should only include the JSON result, no trailing commas.
+Given the following list of tags (separated by the "\\n" character) in <tags></tags>, and text query in <query></query>, select tags that relate to the text query the most, and rate them on a scale from 0 to 1 by how closely the text query meaning relates to a tag, rating 1 is for the most fitting tag among these tags, rating 0 is for the least close tag. Don't be afraid to rate a tag as 0. Return results in valid JSON format as an array of objects with keys "tag", "rating". Your response should only include the JSON result, no trailing commas.
 <tags>
-${tagList.join('\n')}
+${sanitizeInput(tagList.join('\n'))}
 </tags>
-<query>${query}</query>
+<query>${sanitizeInput(query)}</query>
 ${AI_PROMPT}`;
 
 export const searchTagsByQuery = async (query: string, tagList: string[]): Promise<TagRating[]> => {
@@ -24,7 +25,7 @@ export const searchTagsByQuery = async (query: string, tagList: string[]): Promi
 	const { completion } = await client.complete({
 		model: 'claude-instant-1',
 		prompt: getRankTagsPrompt(query, tagList),
-		max_tokens_to_sample: 256,
+		max_tokens_to_sample: 512,
 		stop_sequences: [],
 		temperature: 0.7,
 	});
