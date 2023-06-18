@@ -1,13 +1,15 @@
 import { ImageAnnotatorClient } from '@google-cloud/vision';
 
-import { GOOGLE_APPLICATION_CREDENTIALS } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import type { Photo } from '$lib/db-schema';
 
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] = GOOGLE_APPLICATION_CREDENTIALS;
+process.env['GOOGLE_APPLICATION_CREDENTIALS'] = env['GOOGLE_APPLICATION_CREDENTIALS'];
 
-const client = new ImageAnnotatorClient();
+let client: ImageAnnotatorClient | undefined;
 
 export const generatePhotoTags = async (photo: Photo): Promise<string[] | undefined> => {
+	client ??= new ImageAnnotatorClient();
+
 	const request = {
 		image: { source: { imageUri: photo.srcOptimized || photo.src } },
 		features: [{ type: 'LABEL_DETECTION' }],
