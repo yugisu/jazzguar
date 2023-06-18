@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { getDocs, query, where } from 'firebase/firestore';
 
-import { photosCol } from '$lib/db-schema';
+import { photosCol, type Photo } from '$lib/db-schema';
 import type { TagRating } from '$lib/server/search';
 
 import type { PageLoad } from './$types';
@@ -25,10 +25,16 @@ export const load = (async ({ url, fetch }) => {
 	// 				.filter(Boolean)
 	// 		: [];
 
-	const searchResponse = fetch(`/api/search${url.search}`).then(async (res) => {
+	const searchResults = fetch(`/api/search${url.search}`).then(async (res) => {
 		const aiTags: TagRating[] = await res.json();
 
-		if (aiTags.length === 0) return [];
+		if (aiTags.length === 0)
+			return {
+				photos: [] as Photo[],
+				relevantTags: {},
+			};
+
+		const tagMap = aiTags.reduce<Record<string, number>>((acc, { tag, rating }) => ((acc[tag] = rating), acc), {});
 
 		const queryRef = query(
 			photosCol(),
@@ -41,12 +47,15 @@ export const load = (async ({ url, fetch }) => {
 
 		const photosSnap = await getDocs(queryRef);
 
-		return photosSnap.docs.map((snap) => snap.data());
+		return {
+			photos: photosSnap.docs.map((snap) => snap.data()),
+			relevantTags: tagMap,
+		};
 	});
 
 	return {
 		streamed: {
-			photos: searchResponse,
+			searchResults,
 		},
 	};
 }) satisfies PageLoad;

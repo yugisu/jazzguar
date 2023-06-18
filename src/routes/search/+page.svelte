@@ -14,11 +14,11 @@
 </div>
 
 <div class="p-4">
-	{#await data.streamed.photos}
+	{#await data.streamed.searchResults}
 		Loading...
-	{:then photos}
+	{:then { photos, relevantTags }}
 		{#if photos.length > 0}
-			<Gallery {photos} />
+			<Gallery {photos} {relevantTags} />
 		{:else}
 			No photos found.
 		{/if}
