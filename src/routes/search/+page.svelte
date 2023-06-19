@@ -9,6 +9,8 @@
 	$: initialQuery = $page.url.searchParams.get('q') ?? '';
 </script>
 
+<h1 class="px-4 py-6 text-4xl font-black italic text-gray-800">Search photos</h1>
+
 <div class="flex justify-between gap-4 px-4 py-4 max-sm:flex-col">
 	<SearchBox {initialQuery} />
 </div>
