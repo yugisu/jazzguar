@@ -8,9 +8,11 @@ Author: @yugisu-flux
 
 ### Page structure
 
-- `/` Main page - Header, search bar, link to the **Upload page**, gallery of photos with tags
+- `/` Main page - Header, search bar, link to the **Upload page**, gallery of photos with tags.
 
 - `/upload` Upload page - Header, a simple form that accepts a single (for the time being) photo, an input for manual tags, and a submit button.
+
+- `/search` Search page - Header, search bar, gallery of search results with tags.
 
 ### Tools overview & alternatives
 
