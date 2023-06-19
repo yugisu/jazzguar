@@ -17,5 +17,9 @@
 				"parser": "svelte"
 			}
 		}
+	],
+	"tailwindFunctions": [
+		"clsx",
+		"cva"
 	]
 }

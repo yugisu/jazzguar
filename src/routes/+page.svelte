@@ -7,10 +7,12 @@
 	export let data;
 </script>
 
+<h1 class="px-4 py-6 text-4xl font-black italic text-gray-800">Photo gallery</h1>
+
 <div class="flex justify-between gap-4 px-4 py-4 max-sm:flex-col">
 	<SearchBox />
 
-	<div class="ml-auto">
+	<div>
 		<a href="/upload">
 			<Button>Upload a photo</Button>
 		</a>

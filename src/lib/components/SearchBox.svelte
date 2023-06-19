@@ -4,13 +4,13 @@
 	export let initialQuery = '';
 </script>
 
-<form class="flex max-w-xl flex-1" action="/search">
+<form class="flex max-w-xl flex-1 shadow-sm" action="/search">
 	<input
 		type="text"
 		name="q"
 		placeholder="Search your photos..."
-		class="w-full rounded-sm border border-gray-400 px-2 py-1"
+		class="w-full rounded-l border border-r-0 border-gray-300 px-2 py-1"
 		value={initialQuery}
 	/>
-	<Button type="submit">🔎</Button>
+	<Button class="rounded-none rounded-r" type="submit">🔎</Button>
 </form>
