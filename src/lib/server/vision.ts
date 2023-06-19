@@ -1,9 +1,6 @@
 import { ImageAnnotatorClient } from '@google-cloud/vision';
 
-import { env } from '$env/dynamic/private';
 import type { Photo } from '$lib/db-schema';
-
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] = env['GOOGLE_APPLICATION_CREDENTIALS'];
 
 let client: ImageAnnotatorClient | undefined;
 
