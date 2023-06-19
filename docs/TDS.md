@@ -53,4 +53,4 @@ Consists of two things:
    - **GPT-like client**
    - Something lightweight and suitable for this "text-to-taglist" task
 
-2. **Plain DB search for tags**, or some full-text search engine, if the former is unsufficient.
+2. **Plain DB search for tags**, or some full-text search engine, if the former is insufficient.
