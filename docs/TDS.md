@@ -41,7 +41,7 @@ Author: @yugisu-flux
 
 One of:
 
-- [**Firebase Cloud Vision Image Labeling API**](https://firebase.google.com/docs/ml/label-images)
+- [**Google Cloud Vision API**](https://cloud.google.com/vision)
 - [microsoft/resnet-50](https://huggingface.co/microsoft/resnet-50)
 
 #### Search
