@@ -39,7 +39,7 @@
 			await savePhoto({ file, tags });
 
 			await invalidate('/');
-			goto('/');
+			await goto('/');
 		} catch (error) {
 			if (error instanceof Error) {
 				errorMessage = error.message;
@@ -88,7 +88,9 @@
 			<a href="/">
 				<Button intent="secondary">Cancel</Button>
 			</a>
-			<Button type="submit">Upload&nbsp;&nbsp;🚀</Button>
+			<Button type="submit" disabled={submitting}>
+				{#if submitting}Uploading...{:else}Upload&nbsp;&nbsp;🚀{/if}
+			</Button>
 		</div>
 
 		{#if errorMessage}
