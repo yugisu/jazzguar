@@ -10,7 +10,7 @@
 
 <style lang="postcss">
 	div {
-		color: hsl(var(--hue), 100%, 25%);
+		color: hsl(var(--hue), 80%, 25%);
 		background-color: theme('colors.gray.100');
 	}
 </style>
