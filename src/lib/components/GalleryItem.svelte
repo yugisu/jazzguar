@@ -17,12 +17,8 @@
 		class="aspect-square max-w-full rounded-tl rounded-tr object-cover"
 	/>
 
-	<div class="p-2">
-		{#if rating !== undefined}
-			<p class="text-xs text-gray-300">score: {rating.toFixed(2)}</p>
-		{/if}
-
-		<p title={photo.id}>{photo.name}</p>
+	<div class="px-2 py-1 opacity-60 group-hover:opacity-100">
+		<span class="text-xs font-medium italic" title={photo.id}>{photo.name}</span>
 	</div>
 
 	<div class="relative border-t border-t-gray-100">
@@ -35,8 +31,8 @@
 						<TagLabel text={tag} />
 					{/each}
 
-					{#if otherTags.length > 0}
-						<p class="my-1.5 basis-full text-xs font-bold text-gray-700">Non-related tags:</p>
+					{#if rating !== undefined}
+						<p class="my-1.5 basis-full text-xs font-bold text-gray-700">Confidence: {rating.toFixed(2)}</p>
 					{/if}
 				{/if}
 
