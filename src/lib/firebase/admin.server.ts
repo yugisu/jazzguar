@@ -1,10 +1,11 @@
-import { getApp, getApps, initializeApp } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
+import firebaseAdmin from 'firebase-admin';
 
 import { env } from '$env/dynamic/private';
 
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] ??= env.GOOGLE_APPLICATION_CREDENTIALS;
+if (env.GOOGLE_APPLICATION_CREDENTIALS) {
+	process.env['GOOGLE_APPLICATION_CREDENTIALS'] ??= env.GOOGLE_APPLICATION_CREDENTIALS;
+}
 
-const app = getApps().length === 0 ? initializeApp() : getApp();
+const admin = firebaseAdmin.initializeApp();
 
-export const auth = getAuth(app);
+export const auth = admin.auth();
