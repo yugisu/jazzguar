@@ -10,6 +10,7 @@ export type Photo = {
 	name: string;
 	// TODO: Refactor tags into an array of objects with confidence scores and manual tags.
 	tags: string[];
+	// TODO: Add photo aspect ratio and accent color to this type.
 };
 
 export const photosCol = () => collection(firestore, 'photos') as CollectionReference<Photo>;
