@@ -8,9 +8,9 @@
 	{text}
 </div>
 
-<style>
+<style lang="postcss">
 	div {
-		color: hsl(var(--hue), 90%, 20%);
-		background-color: hsl(var(--hue), 80%, 80%);
+		color: hsl(var(--hue), 100%, 25%);
+		background-color: theme('colors.gray.100');
 	}
 </style>
