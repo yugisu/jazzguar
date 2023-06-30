@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss/plugin';
+
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
@@ -8,5 +10,10 @@ export default {
 
 		extend: {},
 	},
-	plugins: [],
+	plugins: [
+		plugin(({ addVariant }) => {
+			addVariant('hocus', ['&:hover', '&:focus-visible']);
+			addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
+		}),
+	],
 };

@@ -8,8 +8,8 @@
 		{
 			variants: {
 				intent: {
-					primary: ['border-transparent bg-gray-800 hover:bg-gray-700 active:bg-gray-600', 'text-white'],
-					secondary: ['border-transparent bg-gray-300 hover:bg-gray-200 active:bg-gray-400', 'text-gray-700'],
+					primary: ['border-transparent bg-gray-800 active:bg-gray-600 hocus:bg-gray-700', 'text-white'],
+					secondary: ['border-transparent bg-gray-300 active:bg-gray-400 hocus:bg-gray-200', 'text-gray-700'],
 				},
 				size: {
 					medium: 'px-[0.875rem] py-1',
