@@ -26,15 +26,13 @@
 	</div>
 
 	<div class="relative border-t border-t-gray-100">
-		<div class="h-9">
-			<div
-				class="absolute left-0 right-0 flex h-9 flex-wrap gap-1 overflow-hidden rounded-bl rounded-br bg-white p-2 group-hover:h-[auto] group-hover:shadow-sm"
-			>
+		<div
+			class="z-10 h-9 overflow-hidden rounded-bl rounded-br opacity-60 group-hover:overflow-visible group-hover:opacity-100"
+		>
+			<div class="flex flex-wrap gap-1 rounded-bl rounded-br bg-white p-2 shadow-sm">
 				{#if relatedTags}
 					{#each relatedTags as tag (tag)}
-						<div class="opacity-60 group-hover:opacity-100">
-							<TagLabel text={tag} />
-						</div>
+						<TagLabel text={tag} />
 					{/each}
 
 					{#if otherTags.length > 0}
@@ -43,9 +41,7 @@
 				{/if}
 
 				{#each otherTags as tag (tag)}
-					<div class="opacity-60 group-hover:opacity-100">
-						<TagLabel text={tag} />
-					</div>
+					<TagLabel text={tag} />
 				{/each}
 			</div>
 		</div>
