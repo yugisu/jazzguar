@@ -5,9 +5,9 @@ import {
 	signOut as FBSignOut,
 	type User,
 } from 'firebase/auth';
-import { writable, derived } from 'svelte/store';
+import { get, readable } from 'svelte/store';
 
-import { invalidateAll } from '$app/navigation';
+import { goto, invalidateAll } from '$app/navigation';
 import { page } from '$app/stores';
 
 import { Cookies } from './constants';
@@ -38,12 +38,16 @@ export const signInWithGoogle = async () => {
 	const idToken = await user.getIdToken();
 	setIdTokenCookie(idToken);
 	await invalidateAll();
+
+	await goto('/');
 };
 
 export const signOut = async () => {
 	deleteIdTokenCookie();
 	await FBSignOut(auth);
 	await invalidateAll();
+
+	await goto('/');
 };
 
 const userToUserProfile = ({ uid, email, displayName, phoneNumber, photoURL }: User): UserProfile => ({
@@ -54,19 +58,13 @@ const userToUserProfile = ({ uid, email, displayName, phoneNumber, photoURL }: U
 	photoURL: photoURL ?? undefined,
 });
 
-const fbUser = writable<UserProfile | null | undefined>(
-	auth.currentUser ? userToUserProfile(auth.currentUser) : undefined,
-	(set) => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			set(user && userToUserProfile(user));
-		});
+export const user = readable<UserProfile | null>(null, (set) => {
+	const serverUser = get(page).data.userProfile;
+	set(serverUser);
 
-		return () => unsubscribe();
-	},
-);
+	const unsubscribe = onAuthStateChanged(auth, (user) => {
+		set(user && userToUserProfile(user));
+	});
 
-export const user = derived([page, fbUser], ([$page, $fbUser]) => {
-	if ($fbUser === undefined) return $page.data.userProfile;
-
-	return $fbUser;
+	return () => unsubscribe();
 });

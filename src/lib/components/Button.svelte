@@ -19,12 +19,22 @@
 		},
 	);
 
-	interface $$Props extends HTMLButtonAttributes, VariantProps<typeof button> {}
+	interface $$Props extends HTMLButtonAttributes, VariantProps<typeof button> {
+		href?: string;
+	}
 
 	export let intent: $$Props['intent'] = 'primary';
 	export let size: $$Props['size'] = 'medium';
+
+	export let href: $$Props['href'] = undefined;
 </script>
 
-<button {...$$props} class={twMerge(button({ intent, size, class: $$props.class }))}>
-	<slot />
-</button>
+{#if href}
+	<a {href} on:click {...$$props} class={twMerge(button({ intent, size, class: $$props.class }))}>
+		<slot />
+	</a>
+{:else}
+	<button on:click {...$$props} class={twMerge(button({ intent, size, class: $$props.class }))}>
+		<slot />
+	</button>
+{/if}

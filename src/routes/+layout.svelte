@@ -12,7 +12,11 @@
 	});
 </script>
 
+<svelte:head>
+	<title>jazzguar 📸🐆🎶</title>
+</svelte:head>
+
 <Header />
-<main class="pb-20 pt-2">
+<main class="h-full pb-20 pt-2">
 	<slot />
 </main>

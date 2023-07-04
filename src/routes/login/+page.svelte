@@ -1,12 +1,10 @@
 <script>
-	import { signInWithGoogle, signOut, user } from '$lib/auth';
-
-	export let data;
+	import { signInWithGoogle } from '$lib/auth';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
-<button on:click={signInWithGoogle}>Log in with Google</button>
-<button on:click={signOut}>Sign out</button>
+<div class="flex h-full flex-col items-center justify-center">
+	<h1 class="px-4 py-6 text-4xl font-black italic text-gray-800">Sign in to use jazzguar 📸🐆🎶</h1>
 
-<div>
-	{JSON.stringify($user ?? data.user)}
+	<Button on:click={signInWithGoogle}>Sign in with Google</Button>
 </div>
