@@ -5,9 +5,10 @@ import {
 	signOut as FBSignOut,
 	type User,
 } from 'firebase/auth';
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 
 import { invalidateAll } from '$app/navigation';
+import { page } from '$app/stores';
 
 import { Cookies } from './constants';
 import { auth } from './firebase/app';
@@ -53,10 +54,19 @@ const userToUserProfile = ({ uid, email, displayName, phoneNumber, photoURL }: U
 	photoURL: photoURL ?? undefined,
 });
 
-export const user = writable(auth.currentUser && userToUserProfile(auth.currentUser), (set) => {
-	const unsubscribe = onAuthStateChanged(auth, (user) => {
-		set(user && userToUserProfile(user));
-	});
+const fbUser = writable<UserProfile | null | undefined>(
+	auth.currentUser ? userToUserProfile(auth.currentUser) : undefined,
+	(set) => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			set(user && userToUserProfile(user));
+		});
 
-	return () => unsubscribe();
+		return () => unsubscribe();
+	},
+);
+
+export const user = derived([page, fbUser], ([$page, $fbUser]) => {
+	if ($fbUser === undefined) return $page.data.userProfile;
+
+	return $fbUser;
 });
