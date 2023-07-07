@@ -1,8 +1,10 @@
 <script>
 	import { page } from '$app/stores';
-	import { user, signOut } from '$lib/auth';
+	import { signOut, userStore } from '$lib/auth';
 
 	import Button from './Button.svelte';
+
+	const user = userStore();
 </script>
 
 <header class="flex bg-white px-4 py-2">

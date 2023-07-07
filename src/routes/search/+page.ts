@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { getDocs, query, where } from 'firebase/firestore';
 
+import DefaultUnauthenticatedView from '$lib/components/DefaultUnauthenticatedView.svelte';
 import { photosCol, type Photo } from '$lib/db-schema';
 import type { TagRating } from '$lib/server/search';
 
@@ -59,5 +60,6 @@ export const load = (async ({ url, fetch }) => {
 		streamed: {
 			searchResults,
 		},
+		unauthenticatedView: DefaultUnauthenticatedView,
 	};
 }) satisfies PageLoad;

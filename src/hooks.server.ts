@@ -1,4 +1,4 @@
-import type { Cookies as TCookies } from '@sveltejs/kit';
+import type { Handle, Cookies as TCookies } from '@sveltejs/kit';
 import type { UserRecord } from 'firebase-admin/auth';
 
 import { Cookies } from '$lib/constants';
@@ -28,7 +28,7 @@ const getUserProfileFromCookies = async (cookies: TCookies): Promise<UserProfile
 	return null;
 };
 
-export const handle = async ({ event, resolve }) => {
+export const handle: Handle = async ({ event, resolve }) => {
 	const userProfile = await getUserProfileFromCookies(event.cookies);
 	event.locals.userProfile = userProfile;
 

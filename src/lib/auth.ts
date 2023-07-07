@@ -5,8 +5,9 @@ import {
 	signOut as FBSignOut,
 	type User,
 } from 'firebase/auth';
-import { get, readable } from 'svelte/store';
+import { get, readable, type Readable } from 'svelte/store';
 
+import { browser } from '$app/environment';
 import { goto, invalidateAll } from '$app/navigation';
 import { page } from '$app/stores';
 
@@ -47,7 +48,7 @@ export const signOut = async () => {
 	await FBSignOut(auth);
 	await invalidateAll();
 
-	await goto('/');
+	window.location.pathname = '/';
 };
 
 const userToUserProfile = ({ uid, email, displayName, phoneNumber, photoURL }: User): UserProfile => ({
@@ -58,13 +59,39 @@ const userToUserProfile = ({ uid, email, displayName, phoneNumber, photoURL }: U
 	photoURL: photoURL ?? undefined,
 });
 
-export const user = readable<UserProfile | null>(null, (set) => {
-	const serverUser = get(page).data.userProfile;
-	set(serverUser);
+/**
+ * Store for keeping the current user state.
+ *
+ * The user may be determined server-side; however, if the user is null on the server, it might mean that the user's
+ * Firebase id token has expired, but the browser session might be alive, still.
+ * Thus, we use server auth state as a helper, and don't rely on it too much.
+ *
+ * TODO: Rework the handling of auth data on the server so we can trust the auth state coming from there.
+ */
+export const userStore = (): Readable<UserProfile | null | undefined> => {
+	if (!browser) {
+		return {
+			subscribe: (run) => {
+				run(get(page).data.userProfile ?? undefined);
+				return () => void 0;
+			},
+		};
+	}
 
-	const unsubscribe = onAuthStateChanged(auth, (user) => {
-		set(user && userToUserProfile(user));
+	return readable<UserProfile | null | undefined>(undefined, (set) => {
+		const serverUser = get(page).data.userProfile;
+		if (serverUser) {
+			set(serverUser);
+		}
+
+		if (browser) {
+			const unsubscribe = onAuthStateChanged(auth, (user) => {
+				set(user && userToUserProfile(user));
+			});
+
+			return () => unsubscribe();
+		}
+
+		return undefined;
 	});
-
-	return () => unsubscribe();
-});
+};

@@ -3,7 +3,6 @@
 	import Gallery from '$lib/components/Gallery.svelte';
 	import SearchBox from '$lib/components/SearchBox.svelte';
 
-	/** @type {import('./$types').PageData} */
 	export let data;
 </script>
 
