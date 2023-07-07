@@ -1,7 +1,6 @@
 import type { Handle, Cookies as TCookies } from '@sveltejs/kit';
 import type { UserRecord } from 'firebase-admin/auth';
 
-import { CookieNames } from '$lib/auth/constants';
 import type { UserProfile } from '$lib/auth/types';
 import { auth } from '$lib/firebase/app.server';
 
@@ -10,18 +9,19 @@ const userRecordToProfile = ({ uid, email, displayName, photoURL, phoneNumber }:
 };
 
 const getUserProfileFromCookies = async (cookies: TCookies): Promise<UserProfile | null> => {
-	const idToken = cookies.get(CookieNames.ID_TOKEN_COOKIE);
+	const sessionCookie = cookies.get('__session');
 
-	if (idToken) {
+	if (sessionCookie) {
 		try {
-			const { uid } = await auth.verifyIdToken(idToken, true);
+			const { uid } = await auth.verifySessionCookie(sessionCookie);
 
 			const userRecord = await auth.getUser(uid);
 
 			return userRecordToProfile(userRecord);
 		} catch (error) {
 			console.error(error);
-			cookies.delete(CookieNames.ID_TOKEN_COOKIE);
+
+			// TODO: Handle unauthenticated state
 		}
 	}
 
@@ -30,6 +30,7 @@ const getUserProfileFromCookies = async (cookies: TCookies): Promise<UserProfile
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const userProfile = await getUserProfileFromCookies(event.cookies);
+
 	event.locals.userProfile = userProfile;
 
 	const response = await resolve(event);

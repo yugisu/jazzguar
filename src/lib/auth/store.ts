@@ -18,37 +18,27 @@ const userToUserProfile = ({ uid, email, displayName, phoneNumber, photoURL }: U
 
 /**
  * Store for keeping the current user state.
- *
- * The user may be determined server-side; however, if the user is null on the server, it might mean that the user's
- * Firebase id token has expired, but the browser session might be alive, still.
- * Thus, we use server auth state as a helper, and don't rely on it too much.
- *
- * TODO: Rework the handling of auth data on the server so we can trust the auth state coming from there.
  */
-export const userStore = (): Readable<UserProfile | null | undefined> => {
+export const userStore = (): Readable<UserProfile | null> => {
 	if (!browser) {
 		return {
 			subscribe: (run) => {
-				run(get(page).data.userProfile ?? undefined);
+				run(get(page).data.userProfile);
 				return () => void 0;
 			},
 		};
 	}
 
-	return readable<UserProfile | null | undefined>(undefined, (set) => {
+	return readable<UserProfile | null>(null, (set) => {
 		const serverUser = get(page).data.userProfile;
-		if (serverUser) {
-			set(serverUser);
-		}
+		set(serverUser);
+
+		let unsubscribe: (() => void) | undefined;
 
 		if (browser) {
-			const unsubscribe = onAuthStateChanged(auth, (user) => {
-				set(user && userToUserProfile(user));
-			});
-
-			return () => unsubscribe();
+			unsubscribe = onAuthStateChanged(auth, (user) => set(user && userToUserProfile(user)));
 		}
 
-		return undefined;
+		return unsubscribe;
 	});
 };
