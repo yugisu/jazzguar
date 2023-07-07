@@ -20,11 +20,14 @@
 ## Post-MVP
 
 - [x] Authentication V1
+- [ ] Restructure the lib/ folder
 - [ ] Per-user gallery
 - [ ] Photo bulk uploads
-- [ ] Rework authentication
-- [ ] Folder structure
+- [ ] Limit photo sizes to 50MB
+- [ ] Rework authentication - consider pivoting to either frontend-driven or server-driven data fetching and auth, not both.
+- [ ] Photo folder structure
 - [ ] Improve confidence score calculation by adding confidence score to the `Photo.tags` field
 - [ ] Evaluate pricing costs
+- [ ] Consider moving away from Google Cloud Vision and run image recognition on your own
 - [ ] Add logging to backend and frontend logic.
 - [ ] Explore other image tagging options ?

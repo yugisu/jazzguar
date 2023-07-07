@@ -1,10 +1,10 @@
 import { json } from '@sveltejs/kit';
 import { getDocs } from 'firebase/firestore';
 
-import { photosCol } from '$lib/db-schema';
-import { searchTagsByQuery } from '$lib/server/search';
+import { photosCol } from '$lib/db/types';
 
 import type { RequestHandler } from './$types';
+import { searchTagsByQuery } from './search.server';
 
 export const GET = (async ({ url }) => {
 	// TODO: Add logs

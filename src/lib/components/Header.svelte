@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
-	import { signOut, userStore } from '$lib/auth';
+	import { signOut } from '$lib/auth/session';
+	import { userStore } from '$lib/auth/store';
 
 	import Button from './Button.svelte';
 

@@ -1,6 +1,6 @@
 import { ImageAnnotatorClient } from '@google-cloud/vision';
 
-import type { Photo } from '$lib/db-schema';
+import type { Photo } from '$lib/db/types';
 
 let client: ImageAnnotatorClient | undefined;
 

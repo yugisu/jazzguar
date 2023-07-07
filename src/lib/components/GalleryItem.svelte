@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Photo } from '$lib/db-schema';
+	import type { Photo } from '$lib/db/types';
 
 	import TagLabel from './TagLabel.svelte';
 

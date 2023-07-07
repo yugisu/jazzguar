@@ -2,7 +2,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { ulid } from 'ulid';
 
-import { photosCol } from './db-schema';
+import { photosCol, type Photo } from './db/types';
 import { storage } from './firebase/app';
 
 export const resizePhoto = async (file: File): Promise<Blob | undefined> => {
@@ -57,4 +57,32 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 	});
 
 	await fetch(`/api/annotate/${photoId}`, { method: 'POST' });
+};
+
+export type PhotoRelevanceData = {
+	photo: Photo;
+	rating?: number;
+	relatedTags?: string[];
+};
+
+export const calculatePhotoRelevance = (photo: Photo, relevantTags: Record<string, number>): PhotoRelevanceData => {
+	let rating = 0;
+	const relatedTags: string[] = [];
+
+	for (const tag of photo.tags) {
+		const tagRating = relevantTags[tag];
+
+		if (tagRating !== undefined) {
+			rating += tagRating;
+			relatedTags.push(tag);
+		}
+	}
+
+	relatedTags.sort((a, b) => (relevantTags[b] ?? 0) - (relevantTags[a] ?? 0));
+
+	return {
+		photo,
+		rating,
+		relatedTags,
+	};
 };

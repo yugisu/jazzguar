@@ -1,16 +1,16 @@
 import type { Handle, Cookies as TCookies } from '@sveltejs/kit';
 import type { UserRecord } from 'firebase-admin/auth';
 
-import { Cookies } from '$lib/constants';
-import { auth } from '$lib/firebase/admin.server';
-import type { UserProfile } from '$lib/types/auth';
+import { CookieNames } from '$lib/auth/constants';
+import type { UserProfile } from '$lib/auth/types';
+import { auth } from '$lib/firebase/app.server';
 
 const userRecordToProfile = ({ uid, email, displayName, photoURL, phoneNumber }: UserRecord): UserProfile | null => {
 	return { uid, email, displayName, photoURL, phoneNumber };
 };
 
 const getUserProfileFromCookies = async (cookies: TCookies): Promise<UserProfile | null> => {
-	const idToken = cookies.get(Cookies.ID_TOKEN_COOKIE);
+	const idToken = cookies.get(CookieNames.ID_TOKEN_COOKIE);
 
 	if (idToken) {
 		try {
@@ -21,7 +21,7 @@ const getUserProfileFromCookies = async (cookies: TCookies): Promise<UserProfile
 			return userRecordToProfile(userRecord);
 		} catch (error) {
 			console.error(error);
-			cookies.delete(Cookies.ID_TOKEN_COOKIE);
+			cookies.delete(CookieNames.ID_TOKEN_COOKIE);
 		}
 	}
 

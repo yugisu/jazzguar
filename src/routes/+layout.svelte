@@ -4,8 +4,8 @@
 	import { onMount } from 'svelte';
 
 	import { page } from '$app/stores';
-	import { userStore } from '$lib/auth';
-	import { syncAuthCookie } from '$lib/auth';
+	import { syncAuthCookie } from '$lib/auth/session';
+	import { userStore } from '$lib/auth/store';
 	import Header from '$lib/components/Header.svelte';
 
 	onMount(() => {

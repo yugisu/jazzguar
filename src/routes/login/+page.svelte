@@ -1,5 +1,5 @@
 <script>
-	import { signInWithGoogle } from '$lib/auth';
+	import { signInWithGoogle } from '$lib/auth/session';
 	import Button from '$lib/components/Button.svelte';
 </script>
 

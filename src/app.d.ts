@@ -3,7 +3,7 @@
 
 import type { ComponentType } from 'svelte';
 
-import type { UserProfile } from '$lib/types/auth';
+import type { UserProfile } from '$lib/auth/types';
 
 declare global {
 	namespace App {

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Photo } from '$lib/db-schema';
-	import { calculatePhotoRelevance, type PhotoRelevanceData } from '$lib/search';
+	import type { Photo } from '$lib/db/types';
+	import { calculatePhotoRelevance, type PhotoRelevanceData } from '$lib/photos';
 
 	import GalleryItem from './GalleryItem.svelte';
 

@@ -1,10 +1,10 @@
 import { error } from '@sveltejs/kit';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
-import { photosCol } from '$lib/db-schema.js';
-import { generatePhotoTags } from '$lib/server/vision';
+import { photosCol } from '$lib/db/types.js';
 
 import type { RequestHandler } from './$types';
+import { generatePhotoTags } from './vision.server';
 
 export const POST = (async ({ params }) => {
 	// TODO: Add logs

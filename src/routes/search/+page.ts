@@ -2,8 +2,8 @@ import { redirect } from '@sveltejs/kit';
 import { getDocs, query, where } from 'firebase/firestore';
 
 import DefaultUnauthenticatedView from '$lib/components/DefaultUnauthenticatedView.svelte';
-import { photosCol, type Photo } from '$lib/db-schema';
-import type { TagRating } from '$lib/server/search';
+import { photosCol, type Photo } from '$lib/db/types';
+import type { TagRating } from '../api/search/search.server';
 
 import type { PageLoad } from './$types';
 
