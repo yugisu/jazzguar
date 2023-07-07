@@ -1,12 +1,13 @@
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { Image } from 'image-js';
 import { ulid } from 'ulid';
 
 import { photosCol } from './db-schema';
 import { storage } from './firebase/app';
 
 export const resizePhoto = async (file: File): Promise<Blob | undefined> => {
+	const { Image } = await import('image-js');
+
 	const image = await Image.load(URL.createObjectURL(file));
 
 	const resizeTargetDimension = 1000;
