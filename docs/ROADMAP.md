@@ -16,13 +16,15 @@
   - [x] Address security issues (like ability to inject your own arbitrary text into the text query).
   - [x] Improve the accuracy and add more context to the prompt.
 - [x] Deploy the app - make sure your local env vars are kept under the `.env.local` file (not `.env`), and hit`yarn deploy`.
-- [ ] Add logging to backend and frontend logic.
 
 ## Post-MVP
 
-- [ ] Improve confidence score calculation by adding confidence score to the `Photo.tags` field
+- [x] Authentication V1
+- [ ] Per-user gallery
 - [ ] Photo bulk uploads
-- [ ] Evaluate pricing costs
-- [ ] Auth, per-user gallery
-- [ ] Explore other image tagging options ?
+- [ ] Rework authentication
 - [ ] Folder structure
+- [ ] Improve confidence score calculation by adding confidence score to the `Photo.tags` field
+- [ ] Evaluate pricing costs
+- [ ] Add logging to backend and frontend logic.
+- [ ] Explore other image tagging options ?
