@@ -1,10 +1,12 @@
-import { collection, CollectionReference } from 'firebase/firestore';
+import { collection, CollectionReference, query, where } from 'firebase/firestore';
 
 import { firestore } from '../firebase/app';
 
 /** Photo stored at `/photos/` */
 export type Photo = {
 	id: string;
+	/** Id of the user who uploaded the photo */
+	uploadedById: string;
 	src: string;
 	srcOptimized?: string | undefined;
 	name: string;
@@ -14,3 +16,4 @@ export type Photo = {
 };
 
 export const photosCol = () => collection(firestore, 'photos') as CollectionReference<Photo>;
+export const photosForUser = (userId: string) => query(photosCol(), where('uploadedById', '==', userId));
