@@ -1,14 +1,12 @@
 import { ImageAnnotatorClient } from '@google-cloud/vision';
 
-import type { Photo } from '$lib/db/types';
-
 let client: ImageAnnotatorClient | undefined;
 
-export const generatePhotoTags = async (photo: Photo): Promise<string[] | undefined> => {
+export const generatePhotoTags = async (imageUri: string): Promise<string[] | undefined> => {
 	client ??= new ImageAnnotatorClient();
 
 	const request = {
-		image: { source: { imageUri: photo.srcOptimized || photo.src } },
+		image: { source: { imageUri } },
 		features: [{ type: 'LABEL_DETECTION' }],
 	};
 

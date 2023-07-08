@@ -21,5 +21,5 @@
 </div>
 
 <div class="p-4">
-	<Gallery photos={data.photosSnap.docs.map((snap) => snap.data())} />
+	<Gallery photos={data.userPhotos} />
 </div>

@@ -28,6 +28,9 @@ module.exports = {
 		/// Prettier
 		'prettier/prettier': 'warn',
 
+		/// TypeScript
+		'@typescript-eslint/no-non-null-assertion': 'off',
+
 		/// Import
 		'import/first': 'error',
 		'import/newline-after-import': 'warn',
@@ -41,7 +44,17 @@ module.exports = {
 				groups: ['unknown', 'builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
 				pathGroups: [
 					{
-						pattern: '$**/**',
+						pattern: '$!(lib)/**',
+						group: 'internal',
+						position: 'before',
+					},
+					{
+						pattern: '$lib/components/**',
+						group: 'internal',
+						position: 'before',
+					},
+					{
+						pattern: '$lib/**',
 						group: 'internal',
 						position: 'before',
 					},

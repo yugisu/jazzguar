@@ -1,17 +1,9 @@
 <script>
 	import './global.css';
 
-	import { onMount } from 'svelte';
-
 	import { page } from '$app/stores';
-	import { syncAuthCookie } from '$lib/auth/session';
 	import { userStore } from '$lib/auth/store';
 	import Header from '$lib/components/Header.svelte';
-
-	onMount(() => {
-		const unsubscribe = syncAuthCookie();
-		return () => unsubscribe();
-	});
 
 	const user = userStore();
 </script>

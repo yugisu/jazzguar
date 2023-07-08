@@ -19,12 +19,13 @@
 
 ## Post-MVP
 
-- [x] Authentication V1
+- [x] Authentication
+- [x] ~~Rework authentication - consider pivoting to either frontend-driven or server-driven data fetching and auth, not both.~~
 - [ ] Restructure the lib/ folder
 - [ ] Per-user gallery
 - [ ] Photo bulk uploads
 - [ ] Limit photo sizes to 50MB
-- [ ] Rework authentication - consider pivoting to either frontend-driven or server-driven data fetching and auth, not both.
+- [ ] Handle the case when the session cookie has expired.
 - [ ] Photo folder structure
 - [ ] Improve confidence score calculation by adding confidence score to the `Photo.tags` field
 - [ ] Evaluate pricing costs

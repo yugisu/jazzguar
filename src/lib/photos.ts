@@ -1,7 +1,9 @@
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { get } from 'svelte/store';
 import { ulid } from 'ulid';
 
+import { userStore } from './auth/store';
 import { photosCol, type Photo } from './db/types';
 import { storage } from './firebase/app';
 
@@ -27,6 +29,9 @@ export const resizePhoto = async (file: File): Promise<Blob | undefined> => {
 };
 
 export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) => {
+	const user = get(userStore());
+	if (!user) throw new Error('Unauthenticated');
+
 	const photoId = ulid();
 
 	const fileRef = ref(storage, `photos/general/${photoId}`);
@@ -50,6 +55,7 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 	const docRef = doc(photosCol(), photoId);
 	await setDoc(docRef, {
 		id: photoId,
+		uploadedById: user.uid,
 		name: file.name,
 		tags,
 		src,

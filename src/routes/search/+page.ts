@@ -2,7 +2,9 @@ import { redirect } from '@sveltejs/kit';
 import { getDocs, query, where } from 'firebase/firestore';
 
 import DefaultUnauthenticatedView from '$lib/components/DefaultUnauthenticatedView.svelte';
-import { photosCol, type Photo } from '$lib/db/types';
+
+import { photosForUser, type Photo } from '$lib/db/types';
+
 import type { TagRating } from '../api/search/search.server';
 
 import type { PageLoad } from './$types';
@@ -10,7 +12,10 @@ import type { PageLoad } from './$types';
 // Disabling `ssr` to take advantage of streaming Promises
 export const ssr = false;
 
-export const load = (async ({ url, fetch }) => {
+export const load = (async ({ url, fetch, parent }) => {
+	const { userProfile } = await parent();
+	if (!userProfile) throw new Error('Unauthenticated');
+
 	const searchQuery = url.searchParams.get('q');
 
 	if (!searchQuery) {
@@ -40,7 +45,7 @@ export const load = (async ({ url, fetch }) => {
 		const tagMap = aiTags.reduce<Record<string, number>>((acc, { tag, rating }) => ((acc[tag] = rating), acc), {});
 
 		const queryRef = query(
-			photosCol(),
+			photosForUser(userProfile.uid),
 			where(
 				'tags',
 				'array-contains-any',
