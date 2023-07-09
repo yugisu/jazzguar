@@ -11,6 +11,7 @@
 		placeholder="Search your photos..."
 		class="w-full rounded-l border border-r-0 border-gray-300 px-2 py-1"
 		value={initialQuery}
+		autocomplete="off"
 	/>
 	<Button class="rounded-none rounded-r" type="submit">🔎</Button>
 </form>
