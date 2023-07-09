@@ -13,7 +13,7 @@
 <!-- TODO: Update the Header background to be glassmorphic / transparent / render white shadow below (non-intrusive to the scrolling process) -->
 <header class="sticky top-0 z-20 flex items-center justify-between gap-4 bg-white px-4 py-2">
 	<a
-		class="block cursor-pointer select-none whitespace-nowrap rounded border-b border-r border-black bg-[--logo-bg] px-3.5 py-1 font-extrabold text-white duration-300 ease-out active:grayscale active:transition-[filter]"
+		class="block cursor-pointer select-none whitespace-nowrap rounded border-b border-r border-black bg-[--logo-bg] px-3.5 py-1 font-extrabold text-white transition-[filter] duration-300 ease-out active:grayscale active:transition-none"
 		href="/"
 	>
 		📸🐆🎶
