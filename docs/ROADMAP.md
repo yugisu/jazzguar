@@ -21,14 +21,23 @@
 
 - [x] Authentication
 - [x] ~~Rework authentication - consider pivoting to either frontend-driven or server-driven data fetching and auth, not both.~~
-- [ ] Restructure the lib/ folder
-- [ ] Per-user gallery
+- [x] Restructure the lib/ folder
+- [x] Per-user gallery
+- [ ] Eye-candy - Rework dashboard
+- [ ] Set up a basic landing page
 - [ ] Photo bulk uploads
 - [ ] Limit photo sizes to 50MB
-- [ ] Handle the case when the session cookie has expired.
+- [x] Handle the case when the session cookie has expired. - just redirect the user to the /login page 4Head
 - [ ] Photo folder structure
 - [ ] Improve confidence score calculation by adding confidence score to the `Photo.tags` field
 - [ ] Evaluate pricing costs
 - [ ] Consider moving away from Google Cloud Vision and run image recognition on your own
 - [ ] Add logging to backend and frontend logic.
 - [ ] Explore other image tagging options ?
+
+## Landing page & dashboard rework idea
+
+Have photo skeletons show up on the server rendered app while the auth state and data are loading:
+
+- In case the user hasn't signed in, fade in the landing page over skeleton loaders and start explaining what jazzguar is
+- In case the user is authenticated, render photos in place of those skeletons

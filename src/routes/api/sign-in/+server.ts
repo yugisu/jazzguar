@@ -24,6 +24,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 
 		return json({ status: 'signedIn' });
 	} else {
+		console.log('Detected stale sign in session cookie assignment attempt.');
 		throw error(401, 'Recent sign in required.');
 	}
 };

@@ -14,7 +14,9 @@ export const ssr = false;
 
 export const load = (async ({ url, fetch, parent }) => {
 	const { userProfile } = await parent();
-	if (!userProfile) throw new Error('Unauthenticated');
+
+	//  TODO: Implement the `redirectTo` search param
+	if (!userProfile) throw redirect(302, '/login');
 
 	const searchQuery = url.searchParams.get('q');
 
