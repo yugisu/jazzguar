@@ -4,7 +4,7 @@ import { FieldValue } from 'firebase-admin/firestore';
 import { db } from '$lib/server/db';
 
 import type { RequestHandler } from './$types';
-import { generatePhotoTags } from './vision.server';
+import { processPhotoWithVision } from './vision.server';
 
 export const POST = (async ({ params, locals }) => {
 	// TODO: Add logs
@@ -19,10 +19,16 @@ export const POST = (async ({ params, locals }) => {
 		throw error(404, 'Photo not found');
 	}
 
-	const tags = await generatePhotoTags(photo.srcOptimized || photo.src);
+	const { tags, dominantColor } = await processPhotoWithVision(photo.srcOptimized || photo.src);
 
-	if (tags) {
-		await photoRef.set({ tags: FieldValue.arrayUnion(...tags) }, { merge: true });
+	if (tags || dominantColor) {
+		await photoRef.set(
+			{
+				tags: FieldValue.arrayUnion(...(tags ?? [])),
+				...(dominantColor && { dominantColor }),
+			},
+			{ merge: true },
+		);
 	}
 
 	return new Response(null, { status: 204 });

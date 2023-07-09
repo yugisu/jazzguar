@@ -1,5 +1,6 @@
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import type Image from 'image-js';
 import { get } from 'svelte/store';
 import { ulid } from 'ulid';
 
@@ -7,11 +8,7 @@ import { userStore } from './auth/store';
 import { photosCol, type Photo } from './db/types';
 import { storage } from './firebase/app';
 
-export const resizePhoto = async (file: File): Promise<Blob | undefined> => {
-	const { Image } = await import('image-js');
-
-	const image = await Image.load(URL.createObjectURL(file));
-
+export const resizePhoto = async (image: Image): Promise<Blob | undefined> => {
 	const resizeTargetDimension = 1000;
 
 	if (image.height > resizeTargetDimension || image.width > resizeTargetDimension) {
@@ -32,6 +29,9 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 	const user = get(userStore());
 	if (!user) throw new Error('Unauthenticated');
 
+	const { Image } = await import('image-js');
+	const image = await Image.load(URL.createObjectURL(file));
+
 	const photoId = ulid();
 
 	const fileRef = ref(storage, `photos/general/${photoId}`);
@@ -43,12 +43,12 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 			return getDownloadURL(fileRef);
 		})(),
 		(async () => {
-			const resizedFile = await resizePhoto(file);
+			const resizedFile = await resizePhoto(image);
 			if (resizedFile) {
 				await uploadBytes(thumbnailFileRef, resizedFile, { cacheControl: 'max-age=604800, immutable' });
 				return getDownloadURL(thumbnailFileRef);
 			}
-			return undefined;
+			return null;
 		})(),
 	]);
 
@@ -57,9 +57,11 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 		id: photoId,
 		uploadedById: user.uid,
 		name: file.name,
-		tags,
 		src,
-		...(srcOptimized && { srcOptimized }),
+		srcOptimized: srcOptimized,
+		aspectRatio: `${image.width} / ${image.height}`,
+		tags,
+		dominantColor: null,
 	});
 
 	await fetch(`/api/annotate/${photoId}`, { method: 'POST' });

@@ -15,6 +15,7 @@
 		src={photo.srcOptimized || photo.src}
 		alt={photo.name}
 		class="aspect-square max-w-full rounded-tl rounded-tr object-cover"
+		style:background-color={photo.dominantColor}
 	/>
 
 	<div class="px-2 py-1 opacity-60 group-hocus:opacity-100 max-sm:opacity-100">
