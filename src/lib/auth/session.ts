@@ -2,6 +2,8 @@ import { goto, invalidateAll } from '$app/navigation';
 
 import { auth } from '../firebase/app';
 
+import { extractRedirectTo } from './utils';
+
 export const signInWithGoogle = async () => {
 	const { GoogleAuthProvider, signInWithPopup } = await import('firebase/auth');
 
@@ -16,7 +18,7 @@ export const signInWithGoogle = async () => {
 	});
 
 	await invalidateAll();
-	await goto('/');
+	await goto(extractRedirectTo(location.search) ?? '/');
 };
 
 export const signOut = async () => {
@@ -26,6 +28,6 @@ export const signOut = async () => {
 
 	await FBSignOut(auth);
 
-	await invalidateAll();
-	window.location.pathname = '/';
+	invalidateAll();
+	(window.location as unknown) = '/';
 };

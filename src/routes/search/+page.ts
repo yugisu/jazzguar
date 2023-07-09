@@ -3,6 +3,7 @@ import { getDocs, query, where } from 'firebase/firestore';
 
 import DefaultUnauthenticatedView from '$lib/components/DefaultUnauthenticatedView.svelte';
 
+import { constructLoginRedirectLink } from '$lib/auth/utils';
 import { photosForUser, type Photo } from '$lib/db/types';
 
 import type { TagRating } from '../api/search/search.server';
@@ -15,8 +16,7 @@ export const ssr = false;
 export const load = (async ({ url, fetch, parent }) => {
 	const { userProfile } = await parent();
 
-	//  TODO: Implement the `redirectTo` search param
-	if (!userProfile) throw redirect(302, '/login');
+	if (!userProfile) throw redirect(302, constructLoginRedirectLink(url));
 
 	const searchQuery = url.searchParams.get('q');
 

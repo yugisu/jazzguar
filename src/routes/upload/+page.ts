@@ -1,8 +1,11 @@
 import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ parent }) => {
+import { constructLoginRedirectLink } from '$lib/auth/utils.js';
+
+import type { PageLoad } from './$types';
+
+export const load = (async ({ url, parent }) => {
 	const { userProfile } = await parent();
 
-	//  TODO: Implement the `redirectTo` search param
-	if (!userProfile) throw redirect(302, '/login');
-};
+	if (!userProfile) throw redirect(302, constructLoginRedirectLink(url));
+}) satisfies PageLoad;
