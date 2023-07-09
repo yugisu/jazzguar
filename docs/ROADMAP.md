@@ -23,7 +23,9 @@
 - [x] ~~Rework authentication - consider pivoting to either frontend-driven or server-driven data fetching and auth, not both.~~
 - [x] Restructure the lib/ folder
 - [x] Per-user gallery
-- [ ] Eye-candy - Rework dashboard
+- [x] Eye-candy - Rework dashboard, header search page UI
+- [ ] Eye-candy - Visual updates to photo cards etc.
+- [ ] Eye-candy - Rework photo upload page UI
 - [ ] Set up a basic landing page
 - [ ] Photo bulk uploads
 - [ ] Limit photo sizes to 50MB
