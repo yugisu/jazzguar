@@ -59,7 +59,7 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 		name: file.name,
 		src,
 		srcOptimized: srcOptimized,
-		aspectRatio: `${image.width} / ${image.height}`,
+		aspectRatio: image.width && image.height ? image.width / image.height : 1,
 		tags,
 		dominantColor: null,
 	});

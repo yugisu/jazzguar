@@ -2,8 +2,10 @@
 	import './global.css';
 
 	import { page } from '$app/stores';
-	import { userStore } from '$lib/auth/store';
+
 	import Header from '$lib/components/Header.svelte';
+
+	import { userStore } from '$lib/auth/store';
 
 	const user = userStore();
 </script>
@@ -13,7 +15,7 @@
 </svelte:head>
 
 <Header />
-<main class="h-full pb-20 pt-2">
+<main class="h-full pb-20">
 	{#if $page.data.unauthenticatedView}
 		{#if $user === undefined}
 			<div>Loading...</div>

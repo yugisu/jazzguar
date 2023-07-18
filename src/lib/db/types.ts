@@ -12,7 +12,7 @@ export type Photo = {
 
 	src: string;
 	srcOptimized: string | null;
-	aspectRatio: string;
+	aspectRatio: number;
 
 	// TODO: Refactor tags into an array of objects with confidence scores and manual tags.
 	tags: string[];
