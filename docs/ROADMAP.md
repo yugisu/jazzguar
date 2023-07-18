@@ -30,6 +30,7 @@
 - [ ] Photo bulk uploads
 - [ ] Limit photo sizes to 50MB
 - [ ] Lazy-load Firebase libs on the client
+- [ ] Fix layout shift on page load caused by images and aspect-ratio
 - [x] Handle the case when the session cookie has expired. - just redirect the user to the /login page 4Head
 - [ ] Photo folder structure
 - [ ] Improve confidence score calculation by adding confidence score to the `Photo.tags` field
