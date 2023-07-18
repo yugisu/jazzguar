@@ -10,8 +10,11 @@
 	const user = userStore();
 </script>
 
-<!-- TODO: Update the Header background to be glassmorphic / transparent / render white shadow below (non-intrusive to the scrolling process) -->
-<header class="sticky top-0 z-20 flex items-center justify-between gap-4 bg-white px-4 py-2">
+<div class="h-[3.25rem]" />
+
+<header
+	class="fixed left-0 right-0 top-0 z-20 flex h-[3.25rem] items-center justify-between gap-4 bg-gradient-to-b from-white/80 px-4 py-2"
+>
 	<a
 		class="block cursor-pointer select-none whitespace-nowrap rounded border-b border-r border-black bg-[--logo-bg] px-3.5 py-1 font-extrabold text-white transition-[filter] duration-300 ease-out active:grayscale active:transition-none"
 		href="/"
