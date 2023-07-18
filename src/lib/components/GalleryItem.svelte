@@ -6,41 +6,40 @@
 	export let photo: Photo;
 	export let rating: number | undefined;
 	export let relatedTags: string[] | undefined;
-
-	const otherTags = relatedTags ? photo.tags.filter((tag) => !relatedTags?.includes(tag)) : photo.tags;
 </script>
 
-<a class="group flex flex-col rounded bg-white shadow-sm hocus:z-10" href={photo.src}>
-	<img
-		src={photo.srcOptimized || photo.src}
-		alt={photo.name}
-		class="aspect-square max-w-full rounded-tl rounded-tr object-cover"
-		style:background-color={photo.dominantColor}
-	/>
+<a class="group flex flex-col rounded bg-white hocus:z-10" href={photo.src}>
+	<div class="relative">
+		<img
+			src={photo.srcOptimized || photo.src}
+			alt={photo.name}
+			class="aspect-[7/8] max-w-full rounded object-cover"
+			style:background-color={photo.dominantColor}
+		/>
 
-	<div class="px-2 py-1 opacity-60 group-hocus:opacity-100 max-sm:opacity-100">
-		<span class="text-xs font-medium italic" title={photo.id}>{photo.name}</span>
-	</div>
-
-	<div class="relative border-t border-t-gray-100">
-		<div
-			class="h-9 overflow-hidden rounded-bl rounded-br opacity-60 group-hocus:overflow-visible group-hocus:opacity-100 max-sm:opacity-100"
-		>
-			<div class="flex flex-wrap gap-1 rounded-bl rounded-br bg-white p-2 shadow-sm">
-				{#if relatedTags}
-					{#each relatedTags as tag (tag)}
-						<TagLabel text={tag} />
-					{/each}
-
-					{#if rating !== undefined}
-						<p class="my-1.5 basis-full text-xs font-bold text-gray-700">Confidence: {rating.toFixed(2)}</p>
-					{/if}
-				{/if}
-
-				{#each otherTags as tag (tag)}
-					<TagLabel text={tag} />
-				{/each}
+		<div class="absolute inset-0 flex flex-col justify-between rounded bg-gradient-to-b from-black/70 to-20% p-2">
+			<div class="height-auto flex items-center">
+				<p class="flex-1 text-sm font-medium text-white" title={photo.id}>{photo.name}</p>
 			</div>
+
+			{#if relatedTags}
+				<div>
+					<!-- TODO: Remove or redesign this div. Currently, it exists for dev purposes. -->
+					<p class="text-xs text-white">
+						{#if rating !== undefined}
+							<span>Search confidence: {rating.toFixed(2)}.</span>
+						{/if}
+
+						<span>Related Tags:</span>
+					</p>
+
+					<div class="flex flex-wrap gap-1">
+						{#each relatedTags as tag (tag)}
+							<TagLabel text={tag} />
+						{/each}
+					</div>
+				</div>
+			{/if}
 		</div>
 	</div>
 </a>

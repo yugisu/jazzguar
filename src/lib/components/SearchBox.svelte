@@ -6,12 +6,12 @@
 	$: initialQuery = $page.url.searchParams.get('q') ?? '';
 </script>
 
-<form class="flex flex-1 rounded bg-gray-100" action="/search">
+<form class="flex flex-1 rounded border border-transparent bg-gray-200" action="/search">
 	<input
 		type="text"
 		name="q"
 		placeholder="Search"
-		class="w-full rounded-l border-r-0 bg-transparent px-3.5 py-1 placeholder:text-gray-400 max-sm:px-2"
+		class="w-full rounded-l bg-transparent px-3.5 py-1 placeholder:text-gray-500 max-sm:px-2"
 		value={initialQuery}
 		autocomplete="off"
 	/>
