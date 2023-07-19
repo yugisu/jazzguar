@@ -32,10 +32,10 @@ module.exports = {
 		'@typescript-eslint/no-non-null-assertion': 'off',
 
 		/// Import
-		'import/first': 'error',
+		'import/first': 'warn',
 		'import/newline-after-import': 'warn',
 		'import/order': [
-			'error',
+			'warn',
 			{
 				alphabetize: {
 					caseInsensitive: true,
