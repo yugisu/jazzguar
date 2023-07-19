@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
 	import type { Photo } from '$lib/db/types';
@@ -12,18 +10,6 @@
 	export let photos: Photo[];
 	export let relevantTags: Record<string, number> | undefined = undefined;
 
-	const getLinkHref = (photo: Photo) => {
-		const url = new URL($page.url.href);
-		url.searchParams.set('show', photo.id);
-		return url;
-	};
-
-	const closeModal = () => {
-		const url = new URL($page.url.href);
-		url.searchParams.delete('show');
-		goto(url, { noScroll: true });
-	};
-
 	$: rankedPhotos = (
 		relevantTags
 			? photos
@@ -32,20 +18,45 @@
 			: photos.map((photo) => ({ photo }))
 	) as PhotoRelevanceData[];
 
-	$: focusedPhotoId = $page.url.searchParams.get('show');
-	$: focusedPhoto = photos.find((photo) => photo.id === focusedPhotoId);
+	let focusedPhoto: Photo | undefined;
+	let initialUrl = $page.url;
+	let restoreFocusTo: HTMLElement | undefined;
 
-	$: focusedPhotoId && !focusedPhoto && browser && closeModal();
+	/**
+	 * Opens the photo modal within the context of the current page and modifies the url without actually navigating to the photo page.
+	 * If the user refreshes the page while the modal is opened, they are shown the actual photo page.
+	 */
+	const openPhotoModalHandler = (photo: Photo) => (e: MouseEvent) => {
+		if (e.metaKey || e.ctrlKey) return;
+
+		e.preventDefault();
+
+		// Store the initial url and potential focusable target (if opened the modal via keyboard)
+		initialUrl = $page.url;
+		if (e.detail === 0) {
+			restoreFocusTo = e.currentTarget as HTMLElement;
+		}
+
+		focusedPhoto = photo;
+		window.history.pushState(null, '', (e.currentTarget as HTMLAnchorElement).href);
+	};
+
+	const closePhotoModal = () => {
+		restoreFocusTo?.focus();
+		restoreFocusTo = undefined;
+
+		focusedPhoto = undefined;
+		window.history.pushState(null, '', initialUrl.toString());
+	};
 </script>
 
-<!-- FIXME: Fix issue when the whole page is reloading when opening this modal on the search page -->
 {#if focusedPhoto}
-	<PhotoDetailsModal photo={focusedPhoto} on:close={closeModal} />
+	<PhotoDetailsModal photo={focusedPhoto} on:close={closePhotoModal} />
 {/if}
 
 <div class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4">
 	{#each rankedPhotos as { photo, rating, relatedTags } (photo.id)}
-		<a href={getLinkHref(photo)}>
+		<a href="/jazz/{photo.id}" on:click={openPhotoModalHandler(photo)}>
 			<GalleryItem {photo} {rating} {relatedTags} />
 		</a>
 	{/each}
