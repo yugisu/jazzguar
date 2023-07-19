@@ -34,6 +34,8 @@ export const savePhoto = async ({ file, tags }: { file: File; tags: string[] }) 
 
 	const photoId = ulid();
 
+	// TODO: Use the original file name
+
 	const fileRef = ref(storage, `photos/general/${photoId}`);
 	const thumbnailFileRef = ref(storage, `photos/general/thumbnail-${photoId}`);
 

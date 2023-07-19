@@ -8,8 +8,7 @@
 	export let relatedTags: string[] | undefined;
 </script>
 
-<a
-	href={photo.src}
+<div
 	class="relative flex aspect-[7/8] h-auto w-full flex-col overflow-hidden rounded bg-zinc-600"
 	style:background-color={photo.dominantColor}
 >
@@ -39,4 +38,4 @@
 			</div>
 		{/if}
 	</div>
-</a>
+</div>
