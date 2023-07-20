@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createDialog } from '@melt-ui/svelte';
-	import { ArrowLeft } from 'lucide-svelte';
+	import { X, Maximize2 } from 'lucide-svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	import { browser } from '$app/environment';
@@ -36,7 +36,7 @@
 				class="relative flex flex-col bg-white p-0.5 shadow-lg"
 				style:--dominantColor={photo.dominantColor}
 			>
-				<h2 melt={$title} class="sr-only">Photo "{photo.name}"</h2>
+				<h2 melt={$title} class="sr-only">Photo "{photo.name}" preview</h2>
 
 				<div class="relative">
 					<img
@@ -51,19 +51,25 @@
 					{/if}
 				</div>
 
-				<div class="absolute -top-8 left-0 right-0 flex h-6 items-end justify-between gap-4">
-					<button melt={$close} class="relative h-6 w-6 flex-shrink-0">
-						<span class="sr-only">Close modal</span>
-						<ArrowLeft class="h-full w-full text-white" />
-
-						<div class="absolute -inset-3" />
-					</button>
-
+				<div class="absolute -top-8 left-0 right-0 flex h-6 items-end justify-between gap-8">
 					<p class="pb-0.5 text-sm font-medium text-white">
 						{photo.name}
 					</p>
 
-					<div class="w-6 flex-shrink-0" />
+					<div class="flex h-6 gap-4">
+						<a href="/jazz/{photo.id}" class="relative h-6 w-6" title="Open photo page">
+							<span class="sr-only">Open photo page</span>
+							<Maximize2 class="h-full w-full text-white" />
+
+							<div class="absolute -inset-2" />
+						</a>
+						<button melt={$close} class="relative h-6 w-6" title="Close modal">
+							<span class="sr-only">Close modal</span>
+							<X class="h-full w-full text-white" />
+
+							<div class="absolute -inset-2" />
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
