@@ -24,13 +24,13 @@
 - [x] Restructure the lib/ folder
 - [x] Per-user gallery
 - [x] Eye-candy - Rework dashboard, header search page UI
-- [ ] Eye-candy - Visual updates to photo cards etc.
+- [x] Eye-candy - Visual updates to photo cards etc.
 - [ ] Eye-candy - Rework photo upload page UI
-- [ ] Set up a basic landing page
 - [ ] Photo bulk uploads
+- [ ] Set up a basic landing page
 - [ ] Limit photo sizes to 50MB
 - [ ] Lazy-load Firebase libs on the client
-- [ ] Fix layout shift on page load caused by images and aspect-ratio
+- [x] ~~Fix layout shift on page load caused by images and aspect-ratio~~ - Minor bug
 - [x] Handle the case when the session cookie has expired. - just redirect the user to the /login page 4Head
 - [ ] Photo folder structure
 - [ ] Improve confidence score calculation by adding confidence score to the `Photo.tags` field
